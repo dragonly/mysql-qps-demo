@@ -2,6 +2,12 @@
 
 This is a demo of using mysql's PERFORMANCE_SCHEMA table as a table source and visualizing the qps.
 
+
+# demo
+
+https://user-images.githubusercontent.com/8433465/151288041-73af2da2-65e1-4ffe-be57-b2a52446f40e.mp4
+
+
 # Instructions
 
 1. start a mysql instance, probably using docker
@@ -31,7 +37,3 @@ make run
 4. watch the qps visualization
 
 visit http://localhost:8080 to see the visualization live.
-
-# demo
-
-https://user-images.githubusercontent.com/8433465/151288041-73af2da2-65e1-4ffe-be57-b2a52446f40e.mp4
