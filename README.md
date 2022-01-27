@@ -25,6 +25,7 @@ mysql -u root -ppass -h 127.0.0.1 -e "create database if not exists sbtest;"
 # insert test data
 sysbench oltp_point_select --mysql-host=127.0.0.1 --mysql-user=root --mysql-password=pass --tables=1 --table-size=10000 --db-ps-mode=disable prepare
 # run point get query workload
+# note that we should specify option --db-ps-mode=disable, otherwise sysbench will use prepared statement to run benchmark test, which will not be caught by table performance_schema.events_statements_summary_by_digest
 sysbench oltp_point_select --mysql-host=127.0.0.1 --mysql-user=root --mysql-password=pass --tables=1 --table-size=10000 --time=0 --report-interval=3 --db-ps-mode=disable run
 ```
 
