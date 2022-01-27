@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <script src="echarts.min.js"></script>
+  <script src="main.js"></script>
+</head>
+
+<body>
+  <div id="main" style="width: 600px;height:400px;"></div>
+  <script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('main'));
+
+    var count_star_current = 0
+    var time_last
+    var counts = []
+    var xAxis = []
+    var i = 0
+    var option = {
+      title: {
+        left: 'center',
+        text: 'MySQL QPS'
+      },
+      xAxis: {
+        type: 'category',
+        data: xAxis
+      },
+      yAxis: {
+        type: 'value'
+      },
+      series: [
+        {
+          data: counts,
+          type: 'line'
+        }
+      ]
+    };
+
+    function update() {
+      i++
+      xAxis.push(i.toString())
+      get_db_stats().then(data => {
+        now = Date.now()
+        time_delta = now - time_last
+        time_last = now
+        count = data.message.CountStar
+        delta = count - count_star_current
+        count_star_current = count
+        counts.push(delta * 1000 / time_delta)
+        option.series[0].data = counts
+        // console.log(option)
+        myChart.setOption(option);
+      }).then(() => {
+        setTimeout(() => {
+          update()
+        }, 1000);
+      })
+    }
+
+    get_db_stats()
+      .then(data => {
+        count_star_current = data.message.CountStar
+        time_last = Date.now()
+      }).then(() => {
+        setTimeout(() => {
+          update()
+        }, 1000);
+      })
+
+    myChart.setOption(option);
+  </script>
+</body>
+
+</html>
