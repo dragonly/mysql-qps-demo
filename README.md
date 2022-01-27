@@ -1,6 +1,6 @@
 # MySQL QPS Visualizer
 
-This is a demo of using mysql's PERFORMANCE_SCHEMA table as a table source and visualizing the qps.
+This is a demo of using mysql's PERFORMANCE_SCHEMA table as a data source and visualizing the qps.
 
 
 # demo
